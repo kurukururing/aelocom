@@ -57,7 +57,7 @@
   align-items: center;     
   text-align: center;              
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(rgba(18, 13, 29, 0.7), #120d1d), url('assets/bgHero.svg'); 
   background-size: cover;
   background-position: center;
@@ -69,7 +69,7 @@ display: flex;
   align-items: center;     
   text-align: center;              
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   flex-direction: column;
 }
 
@@ -232,7 +232,7 @@ display: flex;
 
 /*game Section*/
 .content-section{
-  height: 175vh;
+  min-height: 175vh;
   display: flex;
   width: 100%;
   text-align: center;
