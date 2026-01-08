@@ -1,0 +1,43 @@
+html{
+    scroll-behavior: smooth;
+}
+:root {
+  --bg-dark: #120d1d; /* Latar belakang utama */
+  --bg-card: #1f162b; /* Latar belakang kartu */
+  --primary-purple: #8b3dff; /* Warna aksen ungu */
+  --text-white: #ffffff;
+  --text-gray: #b0b0b0;
+  --font-main: 'Inter', sans-serif; /* Pastikan import font ini dari Google Fonts */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.section{
+  scroll-margin-top: 20px;
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  font-family: poppins, sans-serif;
+  line-height: 1.6;
+  height: 4000px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+h1, h2, h3 {
+  background: linear-gradient(90deg, #ffffff 0%, #8109f1 100%); 
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+a { text-decoration: none; color: inherit; }
