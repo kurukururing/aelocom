@@ -15,7 +15,7 @@ const stats = () => {
           <p>Game mempertemukan kita, tapi rasa persaudaraanlah yang membuat kita tetap bersama. Aeloria hadir sebagai wadah di mana solidaritas dijunjung tinggi. Tak peduli skill atau rank-mu, kamu adalah bagian penting dari keluarga ini. Di sini, kamu tidak pernah berjuang sendirian.</p>
         </div>
         <div className="aboutImage">
-          <img className="aboutImage" src="src/assets/himmel.gif" alt="aeloria" />
+          <img className="aboutImage" src="himmel.gif" alt="aeloria" />
         </div>
       </div>
       <div className="lineBreak">
