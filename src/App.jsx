@@ -4,27 +4,36 @@ import Hero from './components/Hero';
 import Stats from './components/stats';
 import GameSection from './components/gameSection';
 import Dokumentasi from './components/dokumentasi';
-// import CtaSection from './components/ctaSection';
+import FadeInSection from './components/FadeInSection.jsx';
+
 function App() {
   return (
-    <div className="App">
-      <div id='home' className='section'>
-        <Navbar />
-        <Hero />
-      </div>
-      <div id='about' className='section'>
-        <Stats />
-      </div>
-      <div id='value' className='section'>
-        <GameSection />
-      </div>
-      <div id='teams' className='section'> 
-        <Dokumentasi />
-      </div>
-      <div id='events' className='section'>
+    <>
+      <div className="App">
+          <FadeInSection>
+        <div id='home' className='section'>
+          <Navbar />
+          <Hero />
+        </div>
+         </FadeInSection>
+            <FadeInSection>
+        <div id='about' className='section'>
+          <Stats />
+        </div>
+      </FadeInSection>
+      <FadeInSection>
+        <div id='value' className='section'>
+          <GameSection />
+        </div>
+        </FadeInSection>
+        <div id='teams' className='section'> 
+          <Dokumentasi />
+        </div>
+        <div id='events' className='section'>
 
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
