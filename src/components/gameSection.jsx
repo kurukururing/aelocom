@@ -6,62 +6,62 @@ const gamesData = [
     id: 1,
     title: "Valorant",
     genre: "FPS",
-    image: "src/assets/valo.gif"
+    image: "public/valo.gif"
   },
   {
     id: 2,
     title: "Mobile Legends",
     genre: "MOBA",
-    image: "src/assets/mole.gif"
+    image: "public/mole.gif"
   },
   {
     id: 3,
     title: "Genshin Impact",
     genre: "RPG",
-    image: "src/assets/genshin.gif"
+    image: "public/genshin.gif"
   },
   {
     id: 4,
     title: "EA FC 24",
     genre: "Sports",
-    image: "src/assets/ea4.gif"
+    image: "public/ea4.gif"
   },
   {
     id: 5,
     title: "Roblox",
     genre: "SandBox",
-    image: "src/assets/roblox.gif"
+    image: "public/roblox.gif"
   },
   {
     id: 6,
     title: "Wuthering Waves",
     genre: "RPG",
-    image: "src/assets/wuwa.gif"
+    image: "public/wuwa.gif"
   },
   {
     id: 7,
     title: "Zenless Zone Zero",
     genre: "RPG",
-    image: "src/assets/zzz.gif"
+    image: "public/zzz.gif"
   },
   {
     id: 8,
     title: "E",
     genre: "Sports",
-    image: "src/assets/himmel.gif"
+    image: "public/himmel.gif"
   }
   ,
   {
     id: 7,
     title: "Genshin Impact",
     genre: "RPG",
-    image: "src/assets/himmel.gif"
+    image: "public/himmel.gif"
   },
   {
     id: 8,
     title: "EA FC 24",
     genre: "Sports",
-    image: "src/assets/himmel.gif"
+    image: "public/himmel.gif"
   }
 ];
 
