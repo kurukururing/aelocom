@@ -10,8 +10,8 @@ const Footer = () => {
           <p>Bergabunglah dengan komunitas kami dan tingkatkan skill bermainmu sekarang!</p>
         </div>
         <button  className="btn-join-discord">
-        <a href="https://discord.gg/cHRhrHE4">
-                      Join Discord
+        <a >
+            Join Discord
         </a>
         </button>
       </div>

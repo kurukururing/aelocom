@@ -162,7 +162,6 @@ function App() {
         <FadeInSection>
           <div id='teams' className='section'> 
             <Anggota />
-            <FadeInSection>
             <div className="team-card-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '30px', padding: '40px 0' }}>
               {teamsData.map((team, index) => (
                 <TeamCard 
@@ -178,7 +177,6 @@ function App() {
                 />
               ))}
             </div>
-                        </FadeInSection>
           </div>
         </FadeInSection>
         <FadeInSection>

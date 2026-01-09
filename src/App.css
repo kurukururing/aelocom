@@ -1116,6 +1116,9 @@ width: 100%;
 @media (max-width: 900px) {
   .footer-content {
     grid-template-columns: 1fr 1fr; /* Tablet: 2 kolom */
+    align-items: center;
+    text-align: center;
+    justify-content: center;
   }
   .footer-cta {
     flex-direction: column;
@@ -1123,14 +1126,30 @@ width: 100%;
     gap: 20px;
     margin: 0 20px 40px;
   }
+    .footer-desc{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+  .footer-col brand-col{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 @media (max-width: 600px) {
   .footer-content {
     grid-template-columns: 1fr; /* Mobile: 1 kolom */
     text-align: center;
+    justify-content: center;
+    align-items: center;
   }
-  
+  .footer-col brand-col{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
   .footer-col h4::after {
     left: 50%;
     transform: translateX(-50%);
@@ -1143,6 +1162,11 @@ width: 100%;
   .footer-bottom {
     flex-direction: column;
     gap: 10px;
+  }
+    .footer-desc{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
   }
 }
 
@@ -1169,7 +1193,11 @@ width: 100%;
   .nav-links {
     display: none; /* Idealnya diganti hamburger menu JS */
   }
-  
+  .footer-col brand-col{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
   .containerHero {
     flex-direction: column-reverse; /* Gambar di atas, teks di bawah */
     text-align: center;
@@ -1206,6 +1234,11 @@ width: 100%;
   .game-grid {
     grid-template-columns: 1fr; /* 1 kolom di HP */
     padding: 0 10px;
+  }
+  .footer-desc{
+    align-items: center;
+    text-align: center;
+    justify-content: center;
   }
 }
 /* =========================================
