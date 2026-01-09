@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const TeamCard = ({ 
   teamName, 
@@ -8,17 +8,19 @@ const TeamCard = ({
   rank, 
   achievement, 
   bannerImg, 
-  members 
+  members // Harapan data: [{ name: "Lemon", avatar: "url..." }, ...]
 }) => {
   
-  // Icon Checkmark Terverifikasi (SVG)
+  // State untuk mengontrol visibilitas Modal
+  const [isOpen, setIsOpen] = useState(false);
+
+  // --- Icons (Sama seperti sebelumnya) ---
   const VerifiedIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="verified-icon">
       <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
     </svg>
   );
 
-  // Icon Trophy (SVG)
   const TrophyIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="stat-icon">
       <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
@@ -30,7 +32,6 @@ const TeamCard = ({
     </svg>
   );
 
-  // Icon Rank/Medal (SVG)
   const RankIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="stat-icon">
        <path d="M12 15c-3.3 0-6-1.5-6-5V5c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v5c0 3.5-2.7 5-6 5Z"/>
@@ -39,60 +40,88 @@ const TeamCard = ({
     </svg>
   );
 
-  // Logika untuk menampilkan maksimal 4 avatar, sisanya menjadi counter (+2)
+  // Handle data members: Cek apakah data string (url saja) atau object
+  const getAvatar = (member) => typeof member === 'string' ? member : member.avatar;
+  const getName = (member, index) => typeof member === 'string' ? `Player ${index + 1}` : member.name;
+
   const displayMembers = members.slice(0, 4);
   const remainingCount = members.length - 4;
 
   return (
-    <div className="team-card">
-      <div className="card-header">
-        <img src={bannerImg} alt={teamName} className="card-banner" />
-        <div className="overlay"></div>
-        <span className="category-badge">{badge}</span>
+    <>
+      {/* CARD UTAMA */}
+      <div className="team-card" onClick={() => setIsOpen(true)}>
+        <div className="card-header">
+          <img src={bannerImg} alt={teamName} className="card-banner" />
+          <div className="overlay"></div>
+          <span className="category-badge">{badge}</span>
+        </div>
+
+        <div className="card-body">
+          <div className="team-header">
+            <h3 className="team-name">
+              {teamName} 
+              <VerifiedIcon />
+            </h3>
+          </div>
+          
+          <p className="game-info">{game} • {genre}</p>
+
+          <div className="team-roster">
+            {displayMembers.map((member, index) => (
+              <img 
+                key={index} 
+                src={getAvatar(member)} 
+                alt="Player" 
+                className="player-avatar" 
+              />
+            ))}
+            {remainingCount > 0 && (
+              <div className="roster-count">+{remainingCount}</div>
+            )}
+          </div>
+
+          <div className="stats-container">
+            <div className="stat-row">
+              <RankIcon />
+              <span><span className="stat-label">Rank:</span> <b>{rank}</b></span>
+            </div>
+            <div className="stat-row">
+              <TrophyIcon />
+              <span>{achievement}</span>
+            </div>
+          </div>
+
+          <button className="view-btn">View Roster</button>
+        </div>
       </div>
 
-      {/* Body Card */}
-      <div className="card-body">
-        <div className="team-header">
-          <h3 className="team-name">
-            {teamName} 
-            <VerifiedIcon />
-          </h3>
-        </div>
-        
-        <p className="game-info">{game} • {genre}</p>
+      {/* MODAL / POPUP (Muncul jika isOpen == true) */}
+      {isOpen && (
+        <div className="modal-overlay" onClick={() => setIsOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            
+            <div className="modal-header">
+              <h3>{teamName} Roster</h3>
+              <button className="close-btn" onClick={() => setIsOpen(false)}>✕</button>
+            </div>
 
-        {/* Member Avatars */}
-        <div className="team-roster">
-          {displayMembers.map((member, index) => (
-            <img 
-              key={index} 
-              src={member} 
-              alt="Player" 
-              className="player-avatar" 
-            />
-          ))}
-          {remainingCount > 0 && (
-            <div className="roster-count">+{remainingCount}</div>
-          )}
-        </div>
+            <div className="modal-roster-grid">
+              {members.map((member, index) => (
+                <div key={index} className="roster-card">
+                  <img src={getAvatar(member)} alt="Player" />
+                  <div className="roster-info">
+                    <span className="player-name">{getName(member, index)}</span>
+                    <span className="player-role">Pro Player</span>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-        {/* Statistik */}
-        <div className="stats-container">
-          <div className="stat-row">
-            <RankIcon />
-            <span><span className="stat-label">Rank:</span> <b>{rank}</b></span>
-          </div>
-          <div className="stat-row">
-            <TrophyIcon />
-            <span>{achievement}</span>
           </div>
         </div>
-
-        {/* Tombol Action */}
-        <button className="view-btn">View Profile</button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

@@ -24,7 +24,7 @@ function Navbar() {
       <div className="container nav-container">
         <div className="logo">
           <span style={{ fontSize: '1.5rem' }}>🎮</span> 
-          <span><a href="#home">Aeloria</a></span>
+          <span className='nameCom'><a href="#home">Aeloria</a></span>
         </div>
         <nav>
           <ul className="nav-links">
@@ -34,7 +34,7 @@ function Navbar() {
             <li><a href="#events">Dokumentasi</a></li>
           </ul>
         </nav>
-        <a href="#join" className="btn-primary">Join Us</a>
+        <a href="https://discord.gg/cHRhrHE4" className="btn-primary">Join Us</a>
       </div>
     </header>
   )

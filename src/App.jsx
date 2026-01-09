@@ -6,8 +6,9 @@ import Stats from './components/stats';
 import GameSection from './components/gameSection';
 import FadeInSection from './components/FadeInSection';
 import Anggota from './components/anggota.jsx';
-// 1. Import Component TeamCard (Sesuaikan path jika file ada di folder components)
+import Dokumentasi from './components/dokumentasi.jsx';
 import TeamCard from './components/TeamCard'; 
+import Footer from './components/Footer.jsx';
 
 function App() {
 
@@ -22,13 +23,13 @@ function App() {
       achievement: "M-Series Champion",
       bannerImg: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
       members: [
-        "https://i.pravatar.cc/150?img=1",
-        "https://i.pravatar.cc/150?img=2",
-        "https://i.pravatar.cc/150?img=3",
-        "https://i.pravatar.cc/150?img=4",
-        "https://i.pravatar.cc/150?img=5",
-        "https://i.pravatar.cc/150?img=6"
-      ]
+      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
+      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
+      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+    ]
     },
     {
       teamName: "AELORIA WINGS",
@@ -39,11 +40,13 @@ function App() {
       achievement: "Major Finalist",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-        "https://i.pravatar.cc/150?img=8",
-        "https://i.pravatar.cc/150?img=9",
-        "https://i.pravatar.cc/150?img=10",
-        "https://i.pravatar.cc/150?img=11"
-      ]
+      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
+      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
+      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+    ]
     },
     {
       teamName: "AELORIA STREAMER",
@@ -54,11 +57,13 @@ function App() {
       achievement: "Major Finalist",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-        "https://i.pravatar.cc/150?img=8",
-        "https://i.pravatar.cc/150?img=9",
-        "https://i.pravatar.cc/150?img=10",
-        "https://i.pravatar.cc/150?img=11"
-      ]
+      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
+      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
+      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+    ]
     },
     {
       teamName: "AELORIA PRIME",
@@ -69,11 +74,13 @@ function App() {
       achievement: "Major Finalist",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-        "https://i.pravatar.cc/150?img=8",
-        "https://i.pravatar.cc/150?img=9",
-        "https://i.pravatar.cc/150?img=10",
-        "https://i.pravatar.cc/150?img=11"
-      ]
+      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
+      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
+      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+    ]
     }
     ,
     {
@@ -85,11 +92,13 @@ function App() {
       achievement: "Major Finalist",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-        "https://i.pravatar.cc/150?img=8",
-        "https://i.pravatar.cc/150?img=9",
-        "https://i.pravatar.cc/150?img=10",
-        "https://i.pravatar.cc/150?img=11"
-      ]
+      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
+      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
+      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+    ]
     },
     {
       teamName: "AELORIA QUEEN",
@@ -100,11 +109,13 @@ function App() {
       achievement: "Major Finalist",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-        "https://i.pravatar.cc/150?img=8",
-        "https://i.pravatar.cc/150?img=9",
-        "https://i.pravatar.cc/150?img=10",
-        "https://i.pravatar.cc/150?img=11"
-      ]
+      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
+      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
+      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+    ]
     },
     {
       teamName: "GIFTER AELORIA",
@@ -115,11 +126,13 @@ function App() {
       achievement: "Major Finalist",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-        "https://i.pravatar.cc/150?img=8",
-        "https://i.pravatar.cc/150?img=9",
-        "https://i.pravatar.cc/150?img=10",
-        "https://i.pravatar.cc/150?img=11"
-      ]
+      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
+      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
+      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+    ]
     }
   ];
 
@@ -168,10 +181,12 @@ function App() {
                         </FadeInSection>
           </div>
         </FadeInSection>
-
+        <FadeInSection>
         <div id='events' className='section'>
-
+            <Dokumentasi />
         </div>
+        </FadeInSection>
+        <Footer />
       </div>
     </>
   )
