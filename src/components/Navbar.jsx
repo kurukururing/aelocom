@@ -23,7 +23,7 @@ function Navbar() {
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         <div className="logo">
-          <span style={{ fontSize: '1.5rem' }}>🎮</span> 
+          
           <span className='nameCom'><a href="#home">Aeloria</a></span>
         </div>
         <nav>
