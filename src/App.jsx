@@ -16,122 +16,108 @@ function App() {
   const teamsData = [
     {
       teamName: "AELORIA LUMINA",
-      game: "ROBLOX",
+      game: "Roblox",
       genre: "SANDBOX",
       badge: "ADMIN",
       rank: "#1",
-      achievement: "M-Series Champion",
+      achievement: "JAGO",
       bannerImg: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80",
       members: [
-      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
-      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
-      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
     ]
     },
     {
       teamName: "AELORIA WINGS",
-      game: "Valorant",
-      genre: "FPS",
-      badge: "Elite",
-      rank: "#2 Pacific",
-      achievement: "Major Finalist",
+      game: "Roblox",
+      genre: "SANDBOX",
+      badge: "ADMIN",
+      rank: "#2",
+      achievement: "JAGO",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
-      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
-      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
     ]
     },
     {
       teamName: "AELORIA STREAMER",
-      game: "Valorant",
-      genre: "FPS",
-      badge: "Elite",
-      rank: "#2 Pacific",
-      achievement: "Major Finalist",
+      game: "ALL",
+      genre: "ALL",
+      badge: "GAMER",
+      rank: "#3",
+      achievement: "ARTIST",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
-      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
-      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
     ]
     },
     {
       teamName: "AELORIA PRIME",
-      game: "Valorant",
-      genre: "FPS",
-      badge: "Elite",
-      rank: "#2 Pacific",
-      achievement: "Major Finalist",
+      game: "ROBLOX",
+      genre: "SANDBOX",
+      badge: "ADMIN",
+      rank: "#4",
+      achievement: "JAGO",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
-      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
-      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
     ]
     }
     ,
     {
       teamName: "AELORIA KING",
-      game: "Valorant",
-      genre: "FPS",
-      badge: "Elite",
-      rank: "#2 Pacific",
-      achievement: "Major Finalist",
+      game: "ROBLOX",
+      genre: "SANDBOX",
+      badge: "BOYS",
+      rank: "#5",
+      achievement: "JAGO",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
-      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
-      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
     ]
     },
     {
       teamName: "AELORIA QUEEN",
-      game: "Valorant",
-      genre: "FPS",
-      badge: "Elite",
-      rank: "#2 Pacific",
-      achievement: "Major Finalist",
+      game: "ROBLOX",
+      genre: "SANDBOX",
+      badge: "GIRLS",
+      rank: "#5",
+      achievement: "JAGO",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
-      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
-      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
     ]
     },
     {
       teamName: "GIFTER AELORIA",
-      game: "Valorant",
-      genre: "FPS",
-      badge: "Elite",
-      rank: "#2 Pacific",
-      achievement: "Major Finalist",
+      game: "ROBLOX",
+      genre: "SANDBOX",
+      badge: "SULTAN",
+      rank: "#6",
+      achievement: "KING",
       bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
       members: [
-      { name: "Lemon", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Skylar", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Alberttt", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Vyn", avatar: "https://i.pravatar.cc/150?img=4" },
-      { name: "Clayyy", avatar: "https://i.pravatar.cc/150?img=5" },
-      { name: "Xinnn", avatar: "https://i.pravatar.cc/150?img=6" }
+      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
+      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
+      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
+      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
     ]
     }
   ];

@@ -36,7 +36,7 @@ const Footer = () => {
             <a href="#" className="social-icon" aria-label="Discord">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.5 5h-19A2.5 2.5 0 0 0 0 7.5v9A2.5 2.5 0 0 0 2.5 19h19a2.5 2.5 0 0 0 2.5-2.5v-9A2.5 2.5 0 0 0 21.5 5z"></path><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-1.12-2.5-2.5-2.5S6 10.62 6 12a2.5 2.5 0 0 0 2.5 2.5z"></path><path d="M15.5 14.5A2.5 2.5 0 0 0 18 12c0-1.38-1.12-2.5-2.5-2.5S13 10.62 13 12a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
             </a>
-            <a href="#" className="social-icon" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@akukenshiro?_r=1&_t=ZS-92wYgFa0NSH" className="social-icon" aria-label="TikTok">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
             </a>
           </div>

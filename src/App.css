@@ -138,6 +138,7 @@
   min-width: 400px;
 }
 
+
 .heroImage {
   border-radius: 20px;
   box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
@@ -697,6 +698,8 @@ width: 100%;
   padding: 20px;
   opacity: 0;
   transition: opacity 0.3s ease;
+  justify-content: center;
+  align-items: center;
 }
 
 .gallery-item:hover .gallery-overlay {
@@ -729,15 +732,16 @@ width: 100%;
 .lightbox {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;                  
+  transform: translateX(-50%);
+  margin-top: 20px;
+  width: 50%;
   height: 100%;
-  background-color: rgba(10, 10, 20, 0.95);
-  backdrop-filter: blur(10px);
   z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   padding: 20px;
   animation: fadeIn 0.3s ease;
 }
@@ -1364,5 +1368,98 @@ width: 100%;
 
   .modal-roster-grid {
     grid-template-columns: 1fr; /* Paksa 1 kolom untuk roster */
+  }
+}
+/* =========================================
+   LARGE DESKTOP / WIDE SCREEN (> 1440px)
+   Khusus monitor besar agar layout lebih lega
+   ========================================= */
+
+@media (min-width: 1441px) {
+  
+  /* 1. Global Scaling */
+  /* Menaikkan ukuran font dasar sedikit agar terbaca lebih nyaman di layar besar */
+  html {
+    font-size: 18px; 
+  }
+
+  /* 2. Memperlebar Container */
+  /* Mengubah max-width dari 1200px menjadi 1600px agar memanfaatkan ruang kosong */
+  .nav-container,
+  .containerHero,
+  .containerStats,
+  .aboutContainer,
+  .containercontent-grid,
+  .gallery-container,
+  .footer-content {
+    max-width: 1600px; 
+    width: 95%;
+  }
+
+  /* 3. Hero Section Lebih Megah */
+  .hero {
+    padding-top: 100px;
+  }
+
+  .hero h1 {
+    font-size: 5rem; /* Judul jauh lebih besar */
+  }
+
+  .heroImage {
+    max-width: 600px; /* Gambar hero diperbesar */
+    height: auto;
+  }
+
+  /* 4. Game Grid & Team Card (Muat lebih banyak kolom) */
+  .game-grid {
+    /* Menampilkan 5 kolom card game sekaligus */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 40px;
+  }
+
+  /* Container kartu team agar tidak terlalu renggang */
+  .team-card-container {
+    gap: 40px !important; 
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .team-card {
+    max-width: 400px; /* Memperbesar ukuran kartu tim */
+  }
+
+  /* 5. Team Banner Top (Bagian Header Tim) */
+  .containerTop {
+    max-width: 1600px;
+    min-height: 500px; /* Banner lebih tinggi */
+    background-position: center 30%; /* Sedikit penyesuaian posisi background */
+  }
+
+  .insideContainer {
+    width: 900px; /* Area teks judul tim lebih lebar */
+  }
+
+  .judulUtama {
+    font-size: 100px; /* Judul Raksasa */
+  }
+
+  /* 6. Gallery / Documentation */
+  .gallery-grid {
+    /* Gallery grid jadi 4 kolom standar */
+    grid-template-columns: repeat(4, 1fr); 
+  }
+  
+  /* Khusus item besar di layar lebar */
+  .gallery-item.wide { grid-column: span 2; }
+  .gallery-item.large { grid-column: span 2; grid-row: span 2; }
+
+  /* 7. Footer agar lebih proporsional */
+  .footer-cta {
+    max-width: 1400px;
+    padding: 60px;
+  }
+  
+  .cta-content h2 {
+    font-size: 2.5rem;
   }
 }

@@ -16,9 +16,6 @@ const anggota = () => {
         </div>
         </div>
       </div>
-      <div className="teamSection">
-
-      </div>
     </div>
   );
 };

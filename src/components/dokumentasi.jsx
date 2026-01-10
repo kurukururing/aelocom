@@ -3,44 +3,51 @@ import React, { useState } from 'react';
 const galleryData = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80',
-    title: 'Turnamen Nasional 2023',
-    date: 'Desember 2023',
+    image: '/foto.jpeg',
+    title: 'Game Night',
+    date: '2025',
     size: 'large' // Mengatur ukuran grid
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80',
-    title: 'Gathering Komunitas',
-    date: 'Januari 2024',
+    image: '/foto1.jpeg',
+    title: 'Game Night',
+    date: '2025',
     size: 'tall'
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=800&q=80',
-    title: 'Coaching Clinic',
-    date: 'Februari 2024',
+    image: '/foto3.jpeg',
+    title: 'Game Night',
+    date: '2025',
     size: 'normal'
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80',
-    title: 'Grand Final Match',
-    date: 'Maret 2024',
+    image: '/foto4.jpeg',
+    title: 'Game Night',
+    date: '2025',
     size: 'normal'
   },
   {
     id: 5,
-    image: 'https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=800&q=80',
-    title: 'Bootcamp Session',
-    date: 'April 2024',
+    image: '/foto5.jpeg',
+    title: 'Game Night',
+    date: '2025',
     size: 'wide'
   },
   {
     id: 6,
-    image: 'https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=800&q=80',
-    title: 'Award Night',
-    date: 'Mei 2024',
+    image: '/foto6.jpeg',
+    title: 'Game Night',
+    date: '2025',
+    size: 'normal'
+  },
+  {
+    id: 7,
+    image: '/foto7.jpeg',
+    title: 'Game Night',
+    date: '2025',
     size: 'normal'
   }
 ];
