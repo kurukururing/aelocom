@@ -46,20 +46,20 @@ const gamesData = [
   },
   {
     id: 8,
-    title: "E",
+    title: "Counter Strike",
     genre: "Sports",
     image: "/himmel.gif"
   }
   ,
   {
     id: 7,
-    title: "Genshin Impact",
+    title: "Point Blank",
     genre: "RPG",
     image: "/himmel.gif"
   },
   {
     id: 8,
-    title: "EA FC 24",
+    title: "Magic Chess",
     genre: "Sports",
     image: "/himmel.gif"
   }

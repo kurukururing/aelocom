@@ -30,21 +30,6 @@ function App() {
     ]
     },
     {
-      teamName: "AELORIA WINGS",
-      game: "Roblox",
-      genre: "SANDBOX",
-      badge: "ADMIN",
-      rank: "#2",
-      achievement: "JAGO",
-      bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
-      members: [
-      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
-    ]
-    },
-    {
       teamName: "AELORIA STREAMER",
       game: "ALL",
       genre: "ALL",
@@ -75,36 +60,6 @@ function App() {
     ]
     }
     ,
-    {
-      teamName: "AELORIA KING",
-      game: "ROBLOX",
-      genre: "SANDBOX",
-      badge: "BOYS",
-      rank: "#5",
-      achievement: "JAGO",
-      bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
-      members: [
-      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
-    ]
-    },
-    {
-      teamName: "AELORIA QUEEN",
-      game: "ROBLOX",
-      genre: "SANDBOX",
-      badge: "GIRLS",
-      rank: "#5",
-      achievement: "JAGO",
-      bannerImg: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=800&q=80",
-      members: [
-      { name: "Kenshiro", avatar: "https://i.pravatar.cc/150?img=1" },
-      { name: "Galan", avatar: "https://i.pravatar.cc/150?img=2" },
-      { name: "Raw", avatar: "https://i.pravatar.cc/150?img=3" },
-      { name: "Una", avatar: "https://i.pravatar.cc/150?img=4" }
-    ]
-    },
     {
       teamName: "GIFTER AELORIA",
       game: "ROBLOX",

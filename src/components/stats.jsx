@@ -15,7 +15,7 @@ const stats = () => {
           <p>Game mempertemukan kita, tapi rasa persaudaraanlah yang membuat kita tetap bersama. Aeloria hadir sebagai wadah di mana solidaritas dijunjung tinggi. Tak peduli skill atau rank-mu, kamu adalah bagian penting dari keluarga ini. Di sini, kamu tidak pernah berjuang sendirian.</p>
         </div>
         <div className="aboutImage">
-          <video className="aboutImage" src="/aelovideo.mp4" autoPlay loop />
+          <video className="aboutImage" src="/aelovideo.mp4" autoPlay loop muted />
         </div>
       </div>
       <div className="lineBreak">
