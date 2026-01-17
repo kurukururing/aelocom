@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 function Message() {
-    // PENTING:
-    // 1. Jika tes di laptop sendiri: "http://localhost:3001/api/v1/users"
-    // 2. Jika tes dari HP (satu WiFi): "http://192.168.x.x:3001/api/v1/users" (Ganti x sesuai IP laptop)
-    // 3. Jika sudah deploy (Render/Vercel): "https://nama-backend-anda.onrender.com/api/v1/users"
+    // --- PERBAIKAN DI SINI ---
+    // Ganti 192.168.1.XX dengan IP Laptop Anda (Cek di CMD -> ipconfig)
+    // Contoh: "http://192.168.1.15:3001/api/v1/users"
+    const endpoint = "http://192.168.1.XX:3001/api/v1/users"; 
 
     const [messages, setMessages] = useState([]);
     const [sender, setSender] = useState("");
@@ -18,8 +18,10 @@ function Message() {
     const fetchMessages = async () => {
         try {
             const response = await fetch(endpoint);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const data = await response.json();
-            // Backend MongoDB tadi mengirim struktur: { success: true, data: [...] }
             setMessages(data.data || []);
         } catch (error) {
             console.error("Error fetching messages:", error);
@@ -44,21 +46,24 @@ function Message() {
                 body: JSON.stringify(newMessageData),
             });
 
+            // Cek jika response bukan JSON (misal HTML error page)
+            const contentType = response.headers.get("content-type");
+            if (!contentType || !contentType.includes("application/json")) {
+                throw new Error("Respon server bukan JSON. Cek IP Address.");
+            }
+
             const result = await response.json();
 
             if (response.ok) {
-                // Berhasil
-                // Result dari MongoDB backend sudah berisi objek pesan lengkap termasuk _id
                 setMessages([result, ...messages]);
                 setMsgText(""); 
-                // setSender(""); // Uncomment jika ingin nama dikosongkan setiap kirim
             } else {
-                // Menangani error duplikat nama dari Backend
                 alert(result.error || "Gagal mengirim pesan");
             }
         } catch (error) {
             console.error("Error sending message:", error);
-            alert("Terjadi kesalahan koneksi. Pastikan Backend berjalan.");
+            // Pesan error ini muncul jika IP Salah atau Firewall aktif
+            alert("Gagal Terhubung! Cek: 1. IP Address benar? 2. Backend jalan? 3. Firewall Laptop mati?");
         } finally {
             setLoading(false);
         }
@@ -67,7 +72,6 @@ function Message() {
     return (
         <div className="message-section">
             <h2 className="section-title">Community Board</h2>
-            
             <div className="message-form-box">
                 <form onSubmit={handleSendMessage}>
                     <div className="input-group">
@@ -94,13 +98,11 @@ function Message() {
                     </button>
                 </form>
             </div>
-
             <div className="message-list-container">
                 {messages.length === 0 ? (
                     <p className="no-msg">Belum ada pesan.</p>
                 ) : (
                     messages.map((msg) => (
-                        // UPDATE: Menggunakan _id dari MongoDB sebagai key (Paling Aman)
                         <div key={msg._id} className="message-card">
                             <div className="msg-header">
                                 <span className="sender-name">{msg.sender_message}</span>
