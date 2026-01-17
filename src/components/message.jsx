@@ -93,25 +93,23 @@ function Message() {
                     </button>
                 </form>
             </div>
-            <div className="message-list-container">
-                {messages.length === 0 ? (
-                    <p className="no-msg">Belum ada pesan.</p>
-                ) : (
-                    messages.map((msg) => (
-                        /* Perhatikan: MySQL biasanya me-return 'id', bukan '_id' */
-                        <div key={msg.id} className="message-card">s
-                            <div className="msg-header">
-                                <span className="sender-name">{msg.sender_message}</span>
-                                {/* Opsional: Tampilkan tanggal */}
-                                <span className="msg-date" style={{fontSize: '0.8em', color: '#888', marginLeft: '10px'}}>
-                                    {new Date(msg.created_at).toLocaleDateString()}
-                                </span>
-                            </div>
-                            <p className="msg-body">{msg.message}</p>
-                        </div>
-                    ))
-                )}
+            /* Ubah bagian ini di Message.js */
+<div className="message-list-container">
+    {messages.length === 0 ? (
+        <p className="no-msg">Belum ada pesan.</p>
+    ) : (
+        // Tambahkan (msg, index)
+        messages.map((msg, index) => (
+            // Gunakan index sebagai key karena database tidak punya ID
+            <div key={index} className="message-card">
+                <div className="msg-header">
+                    <span className="sender-name">{msg.sender_message}</span>
+                </div>
+                <p className="msg-body">{msg.message}</p>
             </div>
+        ))
+    )}
+</div>
         </div>
     );
 }
