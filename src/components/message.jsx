@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function Message() {
-    // Pastikan URL ini sesuai dengan backend Anda
+    // Pastikan backend berjalan di port 3001
     const endpoint = "http://localhost:3001/api/v1/users"; 
 
     const [messages, setMessages] = useState([]);
@@ -20,7 +20,6 @@ function Message() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const result = await response.json();
-            // Backend mengirim { success: true, data: [...] }
             setMessages(result.data || []);
         } catch (error) {
             console.error("Error fetching messages:", error);
@@ -48,11 +47,9 @@ function Message() {
             const result = await response.json();
 
             if (response.ok) {
-                // Tambahkan pesan baru ke paling atas list
+                // Update tampilan langsung tanpa refresh
                 setMessages([result, ...messages]);
                 setMsgText(""); 
-                // Opsional: Clear sender jika ingin user bisa ganti nama
-                // setSender(""); 
             } else {
                 alert(result.error || "Gagal mengirim pesan");
             }
@@ -93,23 +90,22 @@ function Message() {
                     </button>
                 </form>
             </div>
-            /* Ubah bagian ini di Message.js */
-<div className="message-list-container">
-    {messages.length === 0 ? (
-        <p className="no-msg">Belum ada pesan.</p>
-    ) : (
-        // Tambahkan (msg, index)
-        messages.map((msg, index) => (
-            // Gunakan index sebagai key karena database tidak punya ID
-            <div key={index} className="message-card">
-                <div className="msg-header">
-                    <span className="sender-name">{msg.sender_message}</span>
-                </div>
-                <p className="msg-body">{msg.message}</p>
+            
+            <div className="message-list-container">
+                {messages.length === 0 ? (
+                    <p className="no-msg">Belum ada pesan.</p>
+                ) : (
+                    messages.map((msg, index) => (
+                        // Menggunakan index sebagai key (karena tabel DB com_message tidak punya ID unik)
+                        <div key={index} className="message-card">
+                            <div className="msg-header">
+                                <span className="sender-name">{msg.sender_message}</span>
+                            </div>
+                            <p className="msg-body">{msg.message}</p>
+                        </div>
+                    ))
+                )}
             </div>
-        ))
-    )}
-</div>
         </div>
     );
 }
