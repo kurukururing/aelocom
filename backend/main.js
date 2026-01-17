@@ -1,36 +1,50 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const mysql = require("mysql2/promise"); 
+// PERBAIKAN 1: Wajib pakai 'mysql2/promise' agar fitur async/await berfungsi
+const mysql = require("mysql"); 
 
 app.use(cors());
 app.use(express.json());
 
 // --- KONFIGURASI DATABASE ---
-const DATABASE_URL = "mysql://aeloria_consonant:f4b9282c656f35564f9937c5d84c919cfd81ab3a@f1sfr7.h.filess.io:61002/aeloria_consonant";
+// PERBAIKAN 2: Kita pecah URL menjadi object config agar bisa setting SSL
+const pool = mysql.createPool({
+    host: 'f1sfr7.h.filess.io',
+    user: 'aeloria_consonant',
+    password: 'f4b9282c656f35564f9937c5d84c919cfd81ab3a',
+    database: 'aeloria_consonant',
+    port: 61002,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    // PENTING: SSL harus diset false agar koneksi cloud diterima
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
 
-const pool = mysql.createPool(DATABASE_URL);
-
-pool.getConnection()
-    .then(conn => {
+// Cek Koneksi (Menggunakan Async function agar error tertangkap jelas)
+(async () => {
+    try {
+        const conn = await pool.getConnection();
         console.log("✅ Terkoneksi ke Database: aeloria_consonant");
-        conn.release();
-    })
-    .catch(err => {
+        conn.release(); // Lepas koneksi setelah cek berhasil
+    } catch (err) {
         console.error("❌ Gagal koneksi database:", err.message);
-    });
+    }
+})();
 
 // --- ROUTES ---
 
 // GET: Ambil semua pesan
 app.get("/api/v1/users", async (req, res) => {
     try {
-        // PERBAIKAN: Menggunakan tabel 'com_message'
-        // Karena tidak ada kolom tanggal, kita tidak pakai 'ORDER BY'
         const [rows] = await pool.query("SELECT * FROM com_message");
         
-        // Kita balik urutannya secara manual (array reverse) agar pesan baru ada di atas
-        // (Solusi sementara karena tidak ada kolom created_at)
+        // DEBUG: Cek di terminal apakah data muncul
+        console.log("Data fetched:", rows);
+
         res.json({
             success: true,
             data: rows.reverse() 
@@ -50,7 +64,7 @@ app.post('/api/v1/users', async (req, res) => {
     }
 
     try {
-        // 1. Cek Duplikat di tabel 'com_message'
+        // 1. Cek Duplikat
         const [existingUser] = await pool.query(
             "SELECT * FROM com_message WHERE sender_message = ? LIMIT 1", 
             [sender_message]
@@ -60,18 +74,16 @@ app.post('/api/v1/users', async (req, res) => {
             return res.status(409).json({ error: "Nama ini sudah digunakan. Pakai nama lain." });
         }
 
-        // 2. Simpan ke tabel 'com_message'
+        // 2. Simpan ke Database
         await pool.query(
             "INSERT INTO com_message (sender_message, message) VALUES (?, ?)",
             [sender_message, message]
         );
 
         // 3. Respon
-        // Karena tidak ada ID otomatis di database, kita kirim balik data yang dikirim user
         const newMessage = {
             sender_message,
             message,
-            // Buat ID fake random untuk React key sementara
             id: Math.random().toString(36).substr(2, 9) 
         };
 
