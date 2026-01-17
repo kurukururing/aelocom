@@ -1,26 +1,26 @@
 const express = require("express");
-const mongoose = require("mongoose"); // Ganti mysql dengan mongoose
+const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
 
-// --- 1. KONEKSI KE MONGODB ATLAS (Cloud) ---
-// Ganti string di bawah dengan Connection String dari MongoDB Atlas Anda
-const mongoURI = "mongodb+srv://Jefferson:428375@cluster0.zis2fam.mongodb.net/?appName=Cluster0";
+// --- PERUBAHAN 1: NAMA DATABASE ---
+// Perhatikan bagian setelah ".net/". Saya ubah menjadi "aeloria_message"
+// Ganti password dan username sesuai milik Anda
+const mongoURI = "mongodb+srv://Jefferson:428375@cluster0.xxxxx.mongodb.net/aeloria_message?retryWrites=true&w=majority";
 
 mongoose.connect(mongoURI)
-    .then(() => console.log("Database MongoDB Connected"))
+    .then(() => console.log("Terhubung ke Database: aeloria_message"))
     .catch((err) => console.log("Gagal konek database:", err));
 
-// --- 2. MEMBUAT SCHEMA & MODEL ---
-// Di MongoDB, kita mendefinisikan struktur data di kode, bukan di database tools
+// --- PERUBAHAN 2: NAMA COLLECTION (msg) ---
 const MessageSchema = new mongoose.Schema({
     sender_message: {
         type: String,
         required: true,
-        unique: true // Ini menggantikan logika cek duplikat manual
+        unique: true
     },
     message: {
         type: String,
@@ -30,23 +30,21 @@ const MessageSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+}, {
+    // INI KUNCINYA: Memaksa Mongoose masuk ke collection 'msg'
+    // Jika tidak ada ini, Mongoose akan membuat collection baru bernama 'messages'
+    collection: 'msg' 
 });
 
-// Membuat Model (setara dengan Tabel di MySQL)
-const Message = mongoose.model("com_message", MessageSchema);
+const Message = mongoose.model("Message", MessageSchema);
 
-// --- 3. ROUTES ---
+// --- ROUTES (Tidak ada perubahan logika, hanya target DB yang berubah) ---
 
-// GET DATA
 app.get("/api/v1/users", async (req, res) => {
     try {
-        // Syntax MongoDB: .find() menggantikan SELECT *
-        // .sort({ created_at: -1 }) agar pesan terbaru di atas
         const messages = await Message.find().sort({ created_at: -1 });
-        
         res.json({
             success: true,
-            message: "getting users data",
             data: messages,
         });
     } catch (err) {
@@ -54,23 +52,18 @@ app.get("/api/v1/users", async (req, res) => {
     }
 });
 
-// POST DATA
 app.post('/api/v1/users', async (req, res) => {
     const { sender_message, message } = req.body;
-
     try {
-        // Syntax MongoDB: Create new instance & save
         const newMessage = new Message({
             sender_message: sender_message,
             message: message
         });
 
-        await newMessage.save(); // Simpan ke database
-
+        await newMessage.save(); // Masuk ke collection 'msg'
         res.json(newMessage);
 
     } catch (err) {
-        // Error Code 11000 adalah error Duplicate Key di MongoDB
         if (err.code === 11000) {
             return res.status(409).json({ 
                 error: "Nama ini sudah mengirim pesan. Gunakan nama lain." 
@@ -81,5 +74,5 @@ app.post('/api/v1/users', async (req, res) => {
 });
 
 app.listen(3001, () => {
-    console.log("Server is running on port 3001");
+    console.log("Server berjalan di port 3001");
 });
