@@ -9,7 +9,7 @@ app.use(express.json());
 // --- PERUBAHAN 1: NAMA DATABASE ---
 // Perhatikan bagian setelah ".net/". Saya ubah menjadi "aeloria_message"
 // Ganti password dan username sesuai milik Anda
-const mongoURI = "mongodb+srv://Jefferson:428375@cluster0.xxxxx.mongodb.net/aeloria_message?retryWrites=true&w=majority";
+const mongoURI = "mongodb+srv://Jefferson:428375@cluster0.zis2fam.mongodb.net/?appName=Cluster0";
 
 mongoose.connect(mongoURI)
     .then(() => console.log("Terhubung ke Database: aeloria_message"))
