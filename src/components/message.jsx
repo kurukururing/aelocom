@@ -5,7 +5,6 @@ function Message() {
     // 1. Jika tes di laptop sendiri: "http://localhost:3001/api/v1/users"
     // 2. Jika tes dari HP (satu WiFi): "http://192.168.x.x:3001/api/v1/users" (Ganti x sesuai IP laptop)
     // 3. Jika sudah deploy (Render/Vercel): "https://nama-backend-anda.onrender.com/api/v1/users"
-    const endpoint = "http://localhost:3001/api/v1/users"; 
 
     const [messages, setMessages] = useState([]);
     const [sender, setSender] = useState("");

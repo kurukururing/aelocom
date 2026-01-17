@@ -73,6 +73,7 @@ app.post('/api/v1/users', async (req, res) => {
     }
 });
 
-app.listen(3001, () => {
-    console.log("Server berjalan di port 3001");
+// Tambahkan "0.0.0.0" agar server bisa diakses dari IP manapun
+app.listen(3001, "0.0.0.0", () => {
+    console.log("Server berjalan di port 3001 dan siap menerima koneksi luar");
 });
