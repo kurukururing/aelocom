@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const mysql = require("mysql2/promise"); // WAJIB mysql2/promise
+const mongoose = require("mongoose");
 
 const app = express();
 const PORT = 3001;
@@ -9,44 +9,50 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
-// --- KONFIGURASI DATABASE ---
-const dbConfig = {
-    host: 'f1sfr7.h.filess.io',
-    user: 'aeloria_consonant',
-    password: 'f4b9282c656f35564f9937c5d84c919cfd81ab3a',
-    database: 'aeloria_consonant',
-    port: 61002,
-    waitForConnections: true,
-    connectionLimit: 10,
-    ssl: { rejectUnauthorized: false } // Wajib untuk Filess.io
-};
+// --- KONFIGURASI DATABASE MONGODB ---
+// URI Connection String
+const MONGODB_URI = "mongodb+srv://Vercel-Admin-aeloria:OzUHZnw17VVPz9e7@aeloria.no80pvp.mongodb.net/aeloria?retryWrites=true&w=majority";
 
-const pool = mysql.createPool(dbConfig);
+// Koneksi ke MongoDB
+mongoose.connect(MONGODB_URI)
+    .then(() => console.log("✅ DATABASE TERHUBUNG: MongoDB (aeloria)"))
+    .catch((err) => console.error("❌ DATABASE GAGAL KONEK:", err));
 
-// Cek Koneksi Database saat Server Start
-(async () => {
-    try {
-        const connection = await pool.getConnection();
-        console.log("✅ DATABASE TERHUBUNG: aeloria_consonant");
-        connection.release();
-    } catch (error) {
-        console.error("❌ DATABASE GAGAL KONEK:", error.message);
+// --- SCHEMA & MODEL (Pengganti Tabel) ---
+// Kita buat struktur data agar mirip dengan tabel SQL sebelumnya
+const messageSchema = new mongoose.Schema({
+    sender_message: { 
+        type: String, 
+        required: true, 
+        unique: true // Mencegah nama duplikat (seperti logika SQL sebelumnya)
+    },
+    message: { 
+        type: String, 
+        required: true 
+    },
+    createdAt: { 
+        type: Date, 
+        default: Date.now 
     }
-})();
+}, { collection: 'com_message' }); // Paksa nama collection agar sama
+
+const Message = mongoose.model('Message', messageSchema);
 
 // --- ROUTES ---
 
-// 1. Cek Server Nyala (Buka http://localhost:3001 di browser)
+// 1. Cek Server Nyala
 app.get("/", (req, res) => {
-    res.send("Backend Server Berjalan Normal!");
+    res.send("Backend Server MongoDB Berjalan Normal!");
 });
 
 // 2. GET Data Pesan
 app.get("/api/v1/users", async (req, res) => {
     try {
-        const [rows] = await pool.query("SELECT * FROM com_message");
-        console.log(`📡 GET Request: Mengirim ${rows.length} pesan.`);
-        res.json({ success: true, data: rows.reverse() });
+        // Ambil semua data, urutkan dari yang terbaru (_id desc atau createdAt desc)
+        const messages = await Message.find().sort({ createdAt: -1 }); 
+        
+        console.log(`📡 GET Request: Mengirim ${messages.length} pesan.`);
+        res.json({ success: true, data: messages });
     } catch (error) {
         console.error("Error GET:", error.message);
         res.status(500).json({ error: "Gagal ambil data" });
@@ -62,17 +68,25 @@ app.post('/api/v1/users', async (req, res) => {
     }
 
     try {
-        // Cek Duplikat
-        const [existing] = await pool.query("SELECT * FROM com_message WHERE sender_message = ?", [sender_message]);
-        if (existing.length > 0) return res.status(409).json({ error: "Nama sudah dipakai!" });
+        // Buat object baru
+        const newMessage = new Message({
+            sender_message,
+            message
+        });
 
-        // Simpan
-        await pool.query("INSERT INTO com_message (sender_message, message) VALUES (?, ?)", [sender_message, message]);
+        // Simpan ke MongoDB
+        const savedMessage = await newMessage.save();
         
-        console.log(`📩 Pesan Baru: ${sender_message}`);
-        res.json({ sender_message, message, id: Math.random() }); // ID sementara
+        console.log(`📩 Pesan Baru dari ${sender_message}: ${message}`);
+        
+        // Kembalikan data yang sudah disimpan (termasuk _id dari Mongo)
+        res.json(savedMessage); 
 
     } catch (error) {
+        // Cek error duplikat (Code 11000 di MongoDB)
+        if (error.code === 11000) {
+            return res.status(409).json({ error: "Nama sudah dipakai!" });
+        }
         console.error("Error POST:", error.message);
         res.status(500).json({ error: "Database error" });
     }
