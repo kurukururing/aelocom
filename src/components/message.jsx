@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 function Message() {
-    // --- PERBAIKAN DI SINI ---
-    // Ganti 192.168.1.XX dengan IP Laptop Anda (Cek di CMD -> ipconfig)
-    // Contoh: "http://192.168.1.15:3001/api/v1/users"
+    // --- UPDATE: KEMBALI KE LOCALHOST ---
+    // Karena dijalankan di laptop yang sama dengan backend, kita pakai localhost.
+    const endpoint = "http://localhost:3001/api/v1/users"; 
 
     const [messages, setMessages] = useState([]);
     const [sender, setSender] = useState("");
@@ -21,6 +21,7 @@ function Message() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
+            // Mengambil array data dari respon backend { success: true, data: [...] }
             setMessages(data.data || []);
         } catch (error) {
             console.error("Error fetching messages:", error);
@@ -45,15 +46,17 @@ function Message() {
                 body: JSON.stringify(newMessageData),
             });
 
-            // Cek jika response bukan JSON (misal HTML error page)
+            // Cek header untuk memastikan respon adalah JSON
             const contentType = response.headers.get("content-type");
             if (!contentType || !contentType.includes("application/json")) {
-                throw new Error("Respon server bukan JSON. Cek IP Address.");
+                throw new Error("Backend tidak merespon dengan JSON. Pastikan port benar.");
             }
 
             const result = await response.json();
 
             if (response.ok) {
+                // Pesan berhasil terkirim
+                // Menambahkan pesan baru ke daftar pesan yang ada di layar
                 setMessages([result, ...messages]);
                 setMsgText(""); 
             } else {
@@ -61,8 +64,7 @@ function Message() {
             }
         } catch (error) {
             console.error("Error sending message:", error);
-            // Pesan error ini muncul jika IP Salah atau Firewall aktif
-            alert("Gagal Terhubung! Cek: 1. IP Address benar? 2. Backend jalan? 3. Firewall Laptop mati?");
+            alert("Gagal koneksi ke Backend. Pastikan 'node index.js' sudah dijalankan.");
         } finally {
             setLoading(false);
         }
