@@ -99,7 +99,7 @@ function Message() {
                 ) : (
                     messages.map((msg) => (
                         /* Perhatikan: MySQL biasanya me-return 'id', bukan '_id' */
-                        <div key={msg.id || msg._id} className="message-card">
+                        <div key={msg.id} className="message-card">s
                             <div className="msg-header">
                                 <span className="sender-name">{msg.sender_message}</span>
                                 {/* Opsional: Tampilkan tanggal */}

@@ -1,32 +1,27 @@
-require("dotenv").config();
 const express = require("express");
-const cors = require("cors");
-const mysql = require("mysql2/promise"); // Kita pakai versi promise agar bisa async/await
-
 const app = express();
+const cors = require("cors");
+// Kita pakai mysql2 versi promise agar kodingnya lebih rapi (async/await)
+const mysql = require("mysql2/promise"); 
+
 app.use(cors());
 app.use(express.json());
 
-// --- Konfigurasi Koneksi Database ---
-const dbConfig = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT
-};
+// --- KONFIGURASI DATABASE (LANGSUNG) ---
+// Link koneksi lengkap dari yang Anda berikan
+const DATABASE_URL = "mysql://aeloria_consonant:f4b9282c656f35564f9937c5d84c919cfd81ab3a@f1sfr7.h.filess.io:61002/aeloria_consonant";
 
-// Fungsi helper untuk koneksi
-const pool = mysql.createPool(dbConfig);
+// Membuat pool koneksi
+const pool = mysql.createPool(DATABASE_URL);
 
-// Cek koneksi saat server start
+// Cek koneksi saat server nyala (Hanya untuk memastikan)
 pool.getConnection()
     .then(conn => {
-        console.log("✅ Terkoneksi ke Database Cloud Berhasil!");
+        console.log("✅ Berhasil terkoneksi ke Database Filess.io!");
         conn.release();
     })
     .catch(err => {
-        console.error("❌ Gagal koneksi ke Database:", err.message);
+        console.error("❌ Gagal koneksi database:", err.message);
     });
 
 // --- ROUTES ---
@@ -34,7 +29,7 @@ pool.getConnection()
 // GET: Ambil semua pesan
 app.get("/api/v1/users", async (req, res) => {
     try {
-        // Query database: ambil semua pesan diurutkan dari yang terbaru
+        // Query SQL: Ambil data dan urutkan dari yang terbaru (DESC)
         const [rows] = await pool.query("SELECT * FROM messages ORDER BY created_at DESC");
         
         res.json({
@@ -42,8 +37,8 @@ app.get("/api/v1/users", async (req, res) => {
             data: rows
         });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Terjadi kesalahan server saat mengambil data." });
+        console.error("Error GET:", error);
+        res.status(500).json({ error: "Gagal mengambil data dari database" });
     }
 });
 
@@ -51,12 +46,14 @@ app.get("/api/v1/users", async (req, res) => {
 app.post('/api/v1/users', async (req, res) => {
     const { sender_message, message } = req.body;
 
+    // Validasi input
     if (!sender_message || !message) {
         return res.status(400).json({ error: "Nama dan pesan wajib diisi" });
     }
 
     try {
-        // 1. Cek Duplikat Nama (Query ke DB)
+        // 1. Cek Duplikat Nama (Query SQL)
+        // Kita cari apakah ada nama yang sama di tabel
         const [existingUser] = await pool.query(
             "SELECT id FROM messages WHERE sender_message = ? LIMIT 1", 
             [sender_message]
@@ -66,30 +63,31 @@ app.post('/api/v1/users', async (req, res) => {
             return res.status(409).json({ error: "Nama ini sudah mengirim pesan. Gunakan nama lain." });
         }
 
-        // 2. Simpan Pesan Baru
+        // 2. Simpan ke Database
         const [result] = await pool.query(
             "INSERT INTO messages (sender_message, message) VALUES (?, ?)",
             [sender_message, message]
         );
 
-        // 3. Kembalikan data yang baru disimpan ke Frontend
+        // 3. Siapkan respon sukses
+        // Database MySQL mengembalikan 'insertId' sebagai ID baris baru
         const newMessage = {
-            id: result.insertId, // ID dari database
+            id: result.insertId, 
             sender_message,
             message,
             created_at: new Date()
         };
 
-        console.log(`Pesan baru disimpan dari: ${sender_message}`);
+        console.log(`Pesan tersimpan di DB ID: ${result.insertId} oleh ${sender_message}`);
         res.json(newMessage);
 
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Gagal menyimpan pesan ke database." });
+        console.error("Error POST:", error);
+        res.status(500).json({ error: "Gagal menyimpan ke database" });
     }
 });
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, "0.0.0.0", () => {
-    console.log(`🚀 Server Berjalan di port ${PORT}`);
+// Jalankan Server
+app.listen(3001, "0.0.0.0", () => {
+    console.log("Server berjalan di port 3001");
 });
