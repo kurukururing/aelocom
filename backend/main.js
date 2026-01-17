@@ -1,14 +1,16 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
-// PERBAIKAN UTAMA: Wajib 'mysql2/promise' (bukan 'mysql')
-const mysql = require("mysql2/promise"); 
+const mysql = require("mysql2/promise"); // WAJIB mysql2/promise
 
+const app = express();
+const PORT = 3001;
+
+// Izinkan Frontend mengakses Backend
 app.use(cors());
 app.use(express.json());
 
 // --- KONFIGURASI DATABASE ---
-const pool = mysql.createPool({
+const dbConfig = {
     host: 'f1sfr7.h.filess.io',
     user: 'aeloria_consonant',
     password: 'f4b9282c656f35564f9937c5d84c919cfd81ab3a',
@@ -16,48 +18,42 @@ const pool = mysql.createPool({
     port: 61002,
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0,
-    // SSL wajib untuk Filess.io
-    ssl: {
-        rejectUnauthorized: false
-    }
-});
+    ssl: { rejectUnauthorized: false } // Wajib untuk Filess.io
+};
 
-// --- CEK KONEKSI SAAT SERVER START ---
+const pool = mysql.createPool(dbConfig);
+
+// Cek Koneksi Database saat Server Start
 (async () => {
     try {
-        const conn = await pool.getConnection();
-        console.log("✅ SUKSES: Terkoneksi ke Database Cloud (Filess.io)!");
-        conn.release();
-    } catch (err) {
-        console.error("❌ ERROR: Gagal koneksi database.");
-        console.error("Penyebab:", err.message);
+        const connection = await pool.getConnection();
+        console.log("✅ DATABASE TERHUBUNG: aeloria_consonant");
+        connection.release();
+    } catch (error) {
+        console.error("❌ DATABASE GAGAL KONEK:", error.message);
     }
 })();
 
 // --- ROUTES ---
 
-// GET: Ambil data dari Database
+// 1. Cek Server Nyala (Buka http://localhost:3001 di browser)
+app.get("/", (req, res) => {
+    res.send("Backend Server Berjalan Normal!");
+});
+
+// 2. GET Data Pesan
 app.get("/api/v1/users", async (req, res) => {
     try {
-        // Mengambil data dari tabel com_message
         const [rows] = await pool.query("SELECT * FROM com_message");
-        
-        // Debug di terminal
-        console.log(`Mengambil ${rows.length} pesan dari database.`);
-
-        // Reverse manual karena tabel tidak punya kolom tanggal (created_at)
-        res.json({
-            success: true,
-            data: rows.reverse() 
-        });
+        console.log(`📡 GET Request: Mengirim ${rows.length} pesan.`);
+        res.json({ success: true, data: rows.reverse() });
     } catch (error) {
-        console.error("Error GET:", error);
-        res.status(500).json({ error: "Gagal mengambil data database." });
+        console.error("Error GET:", error.message);
+        res.status(500).json({ error: "Gagal ambil data" });
     }
 });
 
-// POST: Masukkan data ke Database
+// 3. POST Pesan Baru
 app.post('/api/v1/users', async (req, res) => {
     const { sender_message, message } = req.body;
 
@@ -66,36 +62,22 @@ app.post('/api/v1/users', async (req, res) => {
     }
 
     try {
-        // 1. Cek Duplikat (Query SQL)
-        const [existingUser] = await pool.query(
-            "SELECT * FROM com_message WHERE sender_message = ? LIMIT 1", 
-            [sender_message]
-        );
+        // Cek Duplikat
+        const [existing] = await pool.query("SELECT * FROM com_message WHERE sender_message = ?", [sender_message]);
+        if (existing.length > 0) return res.status(409).json({ error: "Nama sudah dipakai!" });
 
-        if (existingUser.length > 0) {
-            return res.status(409).json({ error: "Nama ini sudah digunakan. Pakai nama lain." });
-        }
-
-        // 2. Insert ke Database (Bukan JSON lagi)
-        await pool.query(
-            "INSERT INTO com_message (sender_message, message) VALUES (?, ?)",
-            [sender_message, message]
-        );
-
-        // 3. Response
-        const newMessage = {
-            sender_message,
-            message,
-            // ID fake untuk React key sementara (karena DB tidak punya ID auto-increment)
-            id: Math.random().toString(36).substr(2, 9) 
-        };
-
-        console.log(`✅ Pesan baru tersimpan di DB dari: ${sender_message}`);
-        res.json(newMessage);
+        // Simpan
+        await pool.query("INSERT INTO com_message (sender_message, message) VALUES (?, ?)", [sender_message, message]);
+        
+        console.log(`📩 Pesan Baru: ${sender_message}`);
+        res.json({ sender_message, message, id: Math.random() }); // ID sementara
 
     } catch (error) {
-        console.error("Error POST:", error);
-        res.status(500).json({ error: "Gagal menyimpan ke database." });
+        console.error("Error POST:", error.message);
+        res.status(500).json({ error: "Database error" });
     }
 });
 
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
+});
