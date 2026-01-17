@@ -4,7 +4,6 @@ function Message() {
     // --- PERBAIKAN DI SINI ---
     // Ganti 192.168.1.XX dengan IP Laptop Anda (Cek di CMD -> ipconfig)
     // Contoh: "http://192.168.1.15:3001/api/v1/users"
-    const endpoint = "http://192.168.1.XX:3001/api/v1/users"; 
 
     const [messages, setMessages] = useState([]);
     const [sender, setSender] = useState("");
