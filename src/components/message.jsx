@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 function Message() {
-    const endpoint = "http://localhost:3001/api/v1/users"; // Sesuaikan port backend
+    // PENTING:
+    // 1. Jika tes di laptop sendiri: "http://localhost:3001/api/v1/users"
+    // 2. Jika tes dari HP (satu WiFi): "http://192.168.x.x:3001/api/v1/users" (Ganti x sesuai IP laptop)
+    // 3. Jika sudah deploy (Render/Vercel): "https://nama-backend-anda.onrender.com/api/v1/users"
+    const endpoint = "http://localhost:3001/api/v1/users"; 
+
     const [messages, setMessages] = useState([]);
     const [sender, setSender] = useState("");
     const [msgText, setMsgText] = useState("");
@@ -15,6 +20,7 @@ function Message() {
         try {
             const response = await fetch(endpoint);
             const data = await response.json();
+            // Backend MongoDB tadi mengirim struktur: { success: true, data: [...] }
             setMessages(data.data || []);
         } catch (error) {
             console.error("Error fetching messages:", error);
@@ -43,17 +49,17 @@ function Message() {
 
             if (response.ok) {
                 // Berhasil
+                // Result dari MongoDB backend sudah berisi objek pesan lengkap termasuk _id
                 setMessages([result, ...messages]);
                 setMsgText(""); 
-                // Opsional: Kosongkan nama juga agar user mengganti nama baru
-                // setSender(""); 
+                // setSender(""); // Uncomment jika ingin nama dikosongkan setiap kirim
             } else {
-                // Menampilkan pesan error dari backend (misal: Nama sudah dipakai)
+                // Menangani error duplikat nama dari Backend
                 alert(result.error || "Gagal mengirim pesan");
             }
         } catch (error) {
             console.error("Error sending message:", error);
-            alert("Terjadi kesalahan koneksi");
+            alert("Terjadi kesalahan koneksi. Pastikan Backend berjalan.");
         } finally {
             setLoading(false);
         }
@@ -95,8 +101,8 @@ function Message() {
                     <p className="no-msg">Belum ada pesan.</p>
                 ) : (
                     messages.map((msg) => (
-                        // UPDATE: Key sekarang menggunakan sender_message karena ID sudah tidak ada/tidak unik
-                        <div key={msg.sender_message} className="message-card">
+                        // UPDATE: Menggunakan _id dari MongoDB sebagai key (Paling Aman)
+                        <div key={msg._id} className="message-card">
                             <div className="msg-header">
                                 <span className="sender-name">{msg.sender_message}</span>
                             </div>
