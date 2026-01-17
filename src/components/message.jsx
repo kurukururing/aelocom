@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function Message() {
-    // --- UPDATE: KEMBALI KE LOCALHOST ---
-    // Karena dijalankan di laptop yang sama dengan backend, kita pakai localhost.
+    // Pastikan URL ini sesuai dengan backend Anda
     const endpoint = "http://localhost:3001/api/v1/users"; 
 
     const [messages, setMessages] = useState([]);
@@ -20,9 +19,9 @@ function Message() {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            const data = await response.json();
-            // Mengambil array data dari respon backend { success: true, data: [...] }
-            setMessages(data.data || []);
+            const result = await response.json();
+            // Backend mengirim { success: true, data: [...] }
+            setMessages(result.data || []);
         } catch (error) {
             console.error("Error fetching messages:", error);
         }
@@ -46,25 +45,20 @@ function Message() {
                 body: JSON.stringify(newMessageData),
             });
 
-            // Cek header untuk memastikan respon adalah JSON
-            const contentType = response.headers.get("content-type");
-            if (!contentType || !contentType.includes("application/json")) {
-                throw new Error("Backend tidak merespon dengan JSON. Pastikan port benar.");
-            }
-
             const result = await response.json();
 
             if (response.ok) {
-                // Pesan berhasil terkirim
-                // Menambahkan pesan baru ke daftar pesan yang ada di layar
+                // Tambahkan pesan baru ke paling atas list
                 setMessages([result, ...messages]);
                 setMsgText(""); 
+                // Opsional: Clear sender jika ingin user bisa ganti nama
+                // setSender(""); 
             } else {
                 alert(result.error || "Gagal mengirim pesan");
             }
         } catch (error) {
             console.error("Error sending message:", error);
-            alert("Gagal koneksi ke Backend. Pastikan 'node index.js' sudah dijalankan.");
+            alert("Gagal koneksi ke Backend.");
         } finally {
             setLoading(false);
         }
@@ -104,9 +98,14 @@ function Message() {
                     <p className="no-msg">Belum ada pesan.</p>
                 ) : (
                     messages.map((msg) => (
-                        <div key={msg._id} className="message-card">
+                        /* Perhatikan: MySQL biasanya me-return 'id', bukan '_id' */
+                        <div key={msg.id || msg._id} className="message-card">
                             <div className="msg-header">
                                 <span className="sender-name">{msg.sender_message}</span>
+                                {/* Opsional: Tampilkan tanggal */}
+                                <span className="msg-date" style={{fontSize: '0.8em', color: '#888', marginLeft: '10px'}}>
+                                    {new Date(msg.created_at).toLocaleDateString()}
+                                </span>
                             </div>
                             <p className="msg-body">{msg.message}</p>
                         </div>
