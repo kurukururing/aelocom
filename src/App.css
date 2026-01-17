@@ -77,7 +77,6 @@
   justify-content: center;
   width: 100%;
   min-height: 100vh;
-
   padding-top: 80px; 
 }
 
@@ -1344,6 +1343,122 @@ width: 100%;
   .player-role {
     font-size: 0.7rem;
   }
+}
+
+/* MESSAGE SECTION */
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 80px; 
+}
+.message-section {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: white; /* Sesuaikan dengan tema Aeloria */
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: #fff;
+}
+
+/* Form Styling */
+.message-form-box {
+    background: rgba(255, 255, 255, 0.1); /* Efek kaca transparan */
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 40px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-sender, .input-message {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    background: #2a2a2a;
+    color: white;
+    font-size: 1rem;
+}
+
+.input-sender:focus, .input-message:focus {
+    outline: 2px solid #00d4ff; /* Warna aksen */
+}
+
+.btn-send {
+    background: linear-gradient(90deg, #00d4ff, #0051ff);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.btn-send:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+.btn-send:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+/* List Message Styling */
+.message-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 500px;
+    overflow-y: auto; /* Agar bisa discroll jika pesan banyak */
+}
+
+.message-card {
+    background: #1e1e1e;
+    padding: 15px;
+    border-left: 4px solid #00d4ff;
+    border-radius: 4px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.msg-header {
+    margin-bottom: 5px;
+}
+
+.sender-name {
+    font-weight: bold;
+    color: #00d4ff;
+    font-size: 1.1rem;
+}
+
+.msg-body {
+    margin: 0;
+    line-height: 1.5;
+    color: #e0e0e0;
+}
+
+.no-msg {
+    text-align: center;
+    opacity: 0.7;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- Responsive Khusus Layar Sangat Kecil (Mobile Portrait < 400px) --- */

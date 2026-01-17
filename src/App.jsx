@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css'
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero';
@@ -9,7 +9,8 @@ import Anggota from './components/anggota.jsx';
 import Dokumentasi from './components/dokumentasi.jsx';
 import TeamCard from './components/TeamCard'; 
 import Footer from './components/Footer.jsx';
-
+import Message from './components/message.jsx';
+fetch('http://localhost:3001/api/data')
 function App() {
 
 
@@ -60,6 +61,7 @@ function App() {
     ]
     }
     ,
+
     {
       teamName: "GIFTER AELORIA",
       game: "ROBLOX",
@@ -123,6 +125,11 @@ function App() {
         <FadeInSection>
         <div id='events' className='section'>
             <Dokumentasi />
+        </div>
+        </FadeInSection>
+        <FadeInSection>
+        <div id='message' className='section'>
+            <Message />
         </div>
         </FadeInSection>
         <Footer />
